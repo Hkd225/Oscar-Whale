@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Oscar Whale - Studio Kreatif Digital & Web Design Surabaya</title>
+    <meta name="description" content="Oscar Whale adalah studio kreatif digital di Surabaya. Kami melayani jasa pembuatan website, desain presentasi (PPT), UI/UX, dan aset digital premium untuk brand modern.">
+    <meta name="keywords" content="Oscar Whale, Web Design Surabaya, Jasa Pembuatan Website, Template PPT Premium, Desain Grafis, UI/UX Design, Portfolio Kreatif, Digital Agency Indonesia">
+    <meta name="author" content="Oscar Whale">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://oscarwhale.com/"> <meta property="og:title" content="Oscar Whale - Membangun Brand Digital Ikonik">
+    <meta property="og:description" content="Mitra kreatif untuk website, presentasi, dan desain digital. Lihat portfolio dan produk kami.">
+    <meta property="og:image" content="https://oscarwhale.com/thumbnail.jpg"> <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Oscar Whale - Kreatif Digital">
+    <meta name="twitter:description" content="Studio desain digital berbasis di Surabaya. Web, PPT, dan Branding.">
+    
+    <link rel="icon" type="image/png" href="favicon.png"> <link rel="canonical" href="https://oscarwhale.com/">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Oscar Whale",
+      "image": "https://oscarwhale.com/images.png",
+      "description": "Studio kreatif digital yang merancang pengalaman web, artefak, dan aset premium.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Surabaya",
+        "addressCountry": "ID"
+      },
+      "priceRange": "$$",
+      "openingHours": "Mo-Fri 09:00-17:00",
+      "sameAs": [
+        "https://www.instagram.com/osca.rtech",
+        "https://www.tiktok.com/@oscar_tech02",
+        "https://www.facebook.com/share/1DWTouYs9b/",
+        "https://lynk.id/oscartech"
+      ]
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --bg-color: #050505;
+            --text-color: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --card-bg: #111111;
+            --accent-color: #4079ff;
+            --menu-bg: rgba(5, 5, 5, 0.95);
+            --btn-bg: rgba(255, 255, 255, 0.1);
+            --btn-hover-bg: #ffffff;
+            --btn-hover-text: #050505;
+            --menu-icon-color: #ffffff;
+            --loader-bg: #0a0a0a;
+            --loader-text: #ffffff;
+        }
+
+        body.light-mode {
+            --bg-color: #e6e6e6;
+            --text-color: #1a1a1a;
+            --text-muted: rgba(0, 0, 0, 0.6);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --card-bg: #ffffff;
+            --accent-color: #2b55b8;
+            --menu-bg: rgba(230, 230, 230, 0.95);
+            --btn-bg: rgba(0, 0, 0, 0.05);
+            --btn-hover-bg: #000000;
+            --btn-hover-text: #ffffff;
+            --menu-icon-color: #000000;
+            --loader-bg: #e6e6e6;
+            --loader-text: #000000;
+        }
+
+        /* --- GLOBAL RESET --- */
+        *, *::before, *::after { box-sizing: border-box; cursor: none; /* Hide default cursor */ }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot, .cursor-outline {
+            position: fixed; top: 0; left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%; z-index: 9999; pointer-events: none;
+        }
+        .cursor-dot { width: 8px; height: 8px; background-color: var(--text-color); }
+        .cursor-outline {
+            width: 40px; height: 40px;
+            border: 1px solid var(--text-muted);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        body.hovering .cursor-outline {
+            width: 60px; height: 60px;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+            border-color: transparent;
+        }
+
+        /* --- LOADER --- */
+        .loader-wrap {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background-color: var(--loader-bg);
+            z-index: 9999;
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
+        }
+        .loader-words {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            display: flex; align-items: center; justify-content: center;
+            width: 100%; height: 100px; overflow: hidden;
+        }
+        .loader-word {
+            position: absolute; font-family: 'Inter', sans-serif; font-size: 1.2rem;
+            text-transform: uppercase; letter-spacing: 0.3em; color: var(--loader-text);
+            opacity: 0; font-weight: 300;
+        }
+        .loader-title-mask { overflow: hidden; position: relative; margin-top: 20px; }
+        .loader-main-title {
+            font-family: 'Playfair Display', serif; font-size: 5vw; color: var(--loader-text);
+            margin: 0; line-height: 1; transform: translateY(110%); font-style: italic;
+        }
+        .loader-counter {
+            position: absolute; bottom: 40px; right: 40px;
+            font-family: 'Inter', sans-serif; font-size: 1.5rem; font-weight: 300;
+            font-variant-numeric: tabular-nums; color: var(--loader-text);
+        }
+
+        /* --- BACKGROUND --- */
+        .hero-background { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0; pointer-events: none; }
+        .hero-background canvas { width: 100%; height: 100%; display: block; }
+
+        /* --- MENU --- */
+        .menu-toggle-btn {
+            position: fixed; top: 40px; right: 40px; width: 60px; height: 60px;
+            background: var(--btn-bg); backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 2000; transition: transform 0.3s ease;
+        }
+        /* Removed hover scale here, handled by JS magnetic effect */
+        .menu-icon { width: 24px; height: 24px; position: relative; }
+        .menu-icon span {
+            display: block; position: absolute; height: 2px; width: 100%;
+            background: var(--menu-icon-color); border-radius: 2px; left: 0;
+            transition: .25s ease-in-out;
+        }
+        .menu-icon span:nth-child(1) { top: 11px; transform: rotate(0deg); }
+        .menu-icon span:nth-child(2) { top: 11px; transform: rotate(90deg); }
+        .menu-toggle-btn.active .menu-icon span:nth-child(1) { transform: rotate(45deg); }
+        .menu-toggle-btn.active .menu-icon span:nth-child(2) { transform: rotate(-45deg); }
+
+        .menu-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--menu-bg); backdrop-filter: blur(20px); z-index: 1500;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .menu-overlay.open { opacity: 1; visibility: visible; }
+        .menu-links { list-style: none; padding: 0; text-align: center; margin-bottom: 40px; }
+        .menu-item { overflow: hidden; margin: 15px 0; }
+        .menu-link {
+            display: block; font-family: 'Playfair Display', serif; font-size: 4rem;
+            color: var(--text-color); text-decoration: none; transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.3s; cursor: pointer;
+        }
+        .menu-link:hover { color: var(--accent-color); font-style: italic; }
+        .menu-overlay.open .menu-link { transform: translateY(0); }
+        .menu-overlay.open .menu-item:nth-child(1) .menu-link { transition-delay: 0.1s; }
+        .menu-overlay.open .menu-item:nth-child(2) .menu-link { transition-delay: 0.2s; }
+        .menu-overlay.open .menu-item:nth-child(3) .menu-link { transition-delay: 0.3s; }
+        .menu-overlay.open .menu-item:nth-child(4) .menu-link { transition-delay: 0.4s; }
+        .theme-toggle-wrapper {
+            opacity: 0; transform: translateY(20px); transition: all 0.5s ease 0.5s;
+            cursor: pointer; padding: 10px 20px; border: 1px solid var(--border-color);
+            border-radius: 30px; display: flex; align-items: center; gap: 10px;
+        }
+        .menu-overlay.open .theme-toggle-wrapper { opacity: 1; transform: translateY(0); }
+        .theme-toggle-wrapper:hover { background: var(--border-color); }
+        .theme-text { font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* --- HERO SECTION (CENTERED) --- */
+        .hero-wrapper { width: 100%; height: 100vh; position: relative; overflow: hidden; z-index: 2; }
+        
+        /* Grup Tengah: Tagline + Nama */
+        .hero-main-center {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10; /* INCREASED Z-INDEX TO FIX VISIBILITY */
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .hero-tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            color: var(--text-color);
+        }
+
+        .name-container {
+            font-size: 14vw; line-height: 0.9;
+            white-space: nowrap; 
+            opacity: 0;
+            color: var(--text-color); /* Ensure solid color */
+        }
+        
+        .name-first { font-weight: 600; letter-spacing: -0.02em; }
+        .name-last { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; }
+        .serif-italic { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; text-transform: none; }
+
+        /* --- BIO SECTION --- */
+        .bio-container { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            display: flex; align-items: center; justify-content: center;
+            z-index: 4; opacity: 0; pointer-events: none; 
+            padding: 0 5vw; 
+        }
+        
+        .bio-content { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            width: 100%; 
+            max-width: 1400px;
+            gap: 80px; 
+        }
+
+        .bio-image-wrapper { 
+            width: 350px; 
+            height: 480px; 
+            flex-shrink: 0; 
+            z-index: 2; 
+            position: relative;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        .bio-image { 
+            width: 100%; height: 100%; object-fit: cover; 
+            border-radius: 4px; filter: grayscale(100%); transition: filter 0.5s; 
+        }
+        .bio-image-wrapper:hover .bio-image { filter: grayscale(0%); }
+
+        .bio-text { 
+            font-size: 3.5vw; 
+            line-height: 1.3; 
+            z-index: 1; 
+            margin-left: 0; 
+            text-align: left; 
+            color: var(--text-color);
+            position: relative;
+            max-width: 700px;
+        }
+        
+        body.light-mode .bio-text { color: #000; }
+        .bio-text .word { display: inline-block; }
+
+        /* --- EXPLORATION --- */
+        .exploration-section { width: 100%; background-color: var(--bg-color); padding: 15vh 4vw 10vh 4vw; position: relative; z-index: 10; transition: background-color 0.5s; }
+        .explore-header { max-width: 800px; margin-bottom: 80px; padding-left: 1vw; }
+        .explore-title { font-family: 'Playfair Display', serif; font-size: 4.5rem; margin: 0 0 20px 0; line-height: 1; }
+        .ai-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; }
+        .ai-card { background-color: var(--card-bg); aspect-ratio: 3/4; border-radius: 6px; position: relative; overflow: hidden; border: 1px solid var(--border-color); cursor: pointer; }
+        .card-bg-image { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .ai-card:hover .card-bg-image { transform: scale(1.1); opacity: 0.8; }
+        .ai-card-overlay { position: absolute; bottom: 20px; left: 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.8); z-index: 2; }
+
+        /* --- SERVICES --- */
+        .horizontal-wrapper { width: 100%; height: 100vh; overflow: hidden; background-color: var(--bg-color); position: relative; z-index: 10; transition: background-color 0.5s; }
+        .horizontal-container { display: flex; flex-wrap: nowrap; height: 100%; width: 400%; }
+        .h-slide { width: 100vw; height: 100%; display: flex; align-items: center; justify-content: center; padding: 0 10vw; border-right: 1px solid var(--border-color); position: relative; }
+        .intro-slide { justify-content: flex-start; }
+        .h-title { font-size: 9vw; line-height: 0.9; color: var(--text-color); }
+        .service-card { justify-content: flex-start; }
+        .svc-num { font-family: 'Playfair Display', serif; font-size: 18vw; opacity: 0.05; position: absolute; top: 5vh; left: 2vw; line-height: 0.8; pointer-events: none; color: var(--text-color); }
+        .svc-content { z-index: 2; max-width: 650px; margin-left: 8vw; }
+        .svc-content h3 { font-family: 'Playfair Display', serif; font-size: 4rem; margin: 0 0 30px 0; }
+        .svc-content p { font-size: 1.25rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 40px; }
+        .svc-list { list-style: none; padding: 0; display: flex; gap: 15px; flex-wrap: wrap; }
+        .svc-list li { border: 1px solid var(--border-color); padding: 12px 24px; border-radius: 50px; font-size: 0.95rem; transition: 0.3s; }
+        .svc-list li:hover { background: var(--btn-hover-bg); color: var(--btn-hover-text); border-color: var(--btn-hover-bg); }
+        .outro-slide .circle-text { width: 220px; height: 220px; border: 1px solid var(--border-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; text-transform: uppercase; letter-spacing: 2px; font-size: 1.1rem; animation: rotate 15s linear infinite; }
+        @keyframes rotate { to { transform: rotate(360deg); } }
+
+        /* --- MARQUEE --- */
+        .marquee-wrapper { width: 100%; padding: 5rem 0; background: var(--bg-color); overflow: hidden; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; z-index: 10; transition: background-color 0.5s; }
+        .marquee-content { display: flex; white-space: nowrap; animation: scrollText 25s linear infinite; }
+        .marquee-content span { font-family: 'Playfair Display', serif; font-size: 5vw; color: var(--text-muted); padding-right: 3vw; font-style: italic; }
+        @keyframes scrollText { to { transform: translateX(-50%); } }
+
+        /* --- PRODUCTS --- */
+        .products-section { width: 100%; min-height: 100vh; background: var(--bg-color); padding: 15vh 5vw; position: relative; z-index: 10; transition: background-color 0.5s; }
+        .prod-header { margin-bottom: 80px; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .prod-title { font-size: 3.5rem; font-weight: 500; margin: 0; }
+        .prod-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; opacity: 0.5; margin: 0; }
+        .product-item { display: flex; justify-content: space-between; align-items: center; padding: 45px 0; border-bottom: 1px solid var(--border-color); cursor: pointer; transition: padding 0.4s ease, background 0.4s; }
+        .product-item:hover { padding: 45px 30px; background-color: var(--btn-bg); }
+        .prod-info { display: flex; align-items: baseline; gap: 40px; flex: 2; }
+        .prod-id { opacity: 0.3; font-family: 'Inter', sans-serif; }
+        .prod-name { font-family: 'Playfair Display', serif; font-size: 3.5vw; margin: 0; font-weight: 400; }
+        .prod-cat, .prod-price { flex: 1; opacity: 0.6; text-align: right; font-size: 1.1rem; }
+        .hover-reveal-img { position: fixed; top: 0; left: 0; width: 400px; height: 500px; pointer-events: none; z-index: 20; opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+        .hover-reveal-inner { width: 100%; height: 100%; background-size: cover; background-position: center; border-radius: 8px; }
+
+        /* --- FOOTER --- */
+        .footer-section { width: 100%; min-height: 100vh; background: var(--bg-color); color: var(--text-color); padding: 10vh 5vw 5vh 5vw; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 10; transition: background-color 0.5s; }
+        .footer-main-text { font-size: 13vw; line-height: 0.85; font-weight: 600; text-align: center; margin: auto 0; letter-spacing: -0.04em; }
+        .footer-btn-wrapper { display: flex; justify-content: center; margin-bottom: 5vh; }
+        .footer-btn { padding: 25px 50px; border: 1px solid var(--border-color); border-radius: 60px; color: var(--text-color); text-decoration: none; font-size: 1.4rem; transition: 0.4s; }
+        /* Removed hover here, handled by JS magnetic */
+        .footer-bottom { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border-color); opacity: 0.5; }
+        .socials a { 
+            color: var(--text-color); text-decoration: none; margin-right: 25px; 
+            position: relative; padding-bottom: 5px; opacity: 0.6;
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+        .socials a::after {
+            content: ''; position: absolute; left: 0; bottom: 0; width: 0%; height: 1px;
+            background-color: var(--accent-color); transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .socials a:hover { opacity: 1; color: var(--accent-color); }
+        .socials a:hover::after { width: 100%; }
+
+        @media (max-width: 768px) {
+            .menu-link { font-size: 2.5rem; }
+            .horizontal-wrapper { height: auto; overflow: visible; }
+            .horizontal-container { flex-direction: column; width: 100%; }
+            .h-slide { width: 100%; height: 80vh; border-bottom: 1px solid var(--border-color); border-right: none; }
+            .hover-reveal-img { display: none; }
+            .footer-main-text { font-size: 16vw; }
+            .prod-cat { display: none; }
+            .loader-main-title { font-size: 3rem; }
+            .loader-word { font-size: 1rem; }
+            
+            /* Mobile tweaks for bio */
+            .bio-content { flex-direction: column; gap: 30px; }
+            .bio-image-wrapper { width: 280px; height: 380px; margin: 0 auto; }
+            .bio-text { font-size: 2rem; margin-left: 0; text-align: center; }
+            .hero-tagline { font-size: 0.8rem; }
+            
+            /* Disable heavy effects on mobile */
+            .cursor-dot, .cursor-outline { display: none; }
+            *, *::before, *::after { cursor: auto; }
+        }
+    </style>
+</head>
+<body style="overflow: hidden;"> 
+
+    <main>
+        <div class="cursor-dot"></div>
+        <div class="cursor-outline"></div>
+        
+        <div class="loader-wrap">
+            <div class="loader-words">
+                <span class="loader-word">Konsep</span>
+                <span class="loader-word">Desain</span>
+                <span class="loader-word">Rilis</span>
+            </div>
+            <div class="loader-title-mask">
+                <h1 class="loader-main-title">Oscar Whale</h1>
+            </div>
+            <div class="loader-counter">0%</div>
+        </div>
+
+        <nav> <div class="menu-toggle-btn magnetic" id="menuToggle" aria-label="Menu Toggle">
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="menu-overlay" id="menuOverlay">
+                <ul class="menu-links">
+                    <li class="menu-item"><a href="#home" class="menu-link" onclick="handleNavClick(event, '#home')">Beranda</a></li>
+                    <li class="menu-item"><a href="#explorations" class="menu-link" onclick="handleNavClick(event, '#explorations')">Eksplorasi</a></li>
+                    <li class="menu-item"><a href="#services" class="menu-link" onclick="handleNavClick(event, '#services')">Layanan</a></li>
+                    <li class="menu-item"><a href="#contact" class="menu-link" onclick="handleNavClick(event, '#contact')">Kontak</a></li>
+                </ul>
+                
+                <div class="theme-toggle-wrapper magnetic" id="themeToggleBtn">
+                    <svg id="moonIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:block;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg id="sunIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <span class="theme-text" id="themeText">Mode Terang</span>
+                </div>
+            </div>
+        </nav>
+
+        <div class="hero-background" id="gl-container"></div>
+
+        <div class="hero-wrapper" id="home">
+            <div class="hero-main-center">
+                <div class="hero-tagline">
+                    Mitra Kreatif untuk <span class="serif-italic">brand masa depan.</span>
+                </div>
+                <div class="name-container">
+                    <span class="name-first">Oscar</span><span class="name-last">Whale</span>
+                </div>
+            </div>
+
+            <div class="bio-container">
+                <div class="bio-content">
+                    <div class="bio-image-wrapper">
+                        <img src="images.png" class="bio-image" alt="Oscar Whale - Digital Artist & Web Designer Surabaya"> 
+                    </div>
+                    <div class="bio-text js-split-text">
+                        Oscar Whale adalah <span class="serif-italic">studio digital</span> yang merancang pengalaman web, artefak, dan aset premium yang berkelas.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="exploration-section" id="explorations">
+            <div class="explore-header">
+                <h2 class="explore-title">Eksplorasi<br><span style="font-style:italic; opacity: 0.5;">Terpilih</span></h2>
+                <p style="max-width: 500px; opacity: 0.7; line-height: 1.6;">Bereksperimen dengan bentuk, fungsi, dan kode untuk mendefinisikan estetika digital baru.</p>
+            </div>
+
+            <div class="ai-grid">
+                <div class="ai-card" data-img="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000">
+                    <img src="2.png" class="card-bg-image" alt="Desain Katalog Minimalis">
+                    <div class="ai-card-overlay">01 — KATALOG</div>
+                </div>
+                <div class="ai-card" data-img="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1000">
+                    <img src="web.jpeg" class="card-bg-image" alt="Desain Website Modern Surabaya">
+                    <div class="ai-card-overlay">02 — WEB</div>
+                </div>
+                <div class="ai-card" data-img="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000">
+                    <img src="F081.png" class="card-bg-image" alt="Template PPT Premium">
+                    <div class="ai-card-overlay">03 — TEMPLATE PPT</div>
+                </div>
+                <div class="ai-card" data-img="https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?q=80&w=1000">
+                    <img src="ebook.png" class="card-bg-image" alt="Desain E-Book Cover">
+                    <div class="ai-card-overlay">04 — E-BOOK</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="horizontal-wrapper" id="services">
+            <div class="horizontal-container">
+                <div class="h-slide intro-slide">
+                    <h2 class="h-title">Layanan<br><span class="serif-italic">Kami</span></h2>
+                </div>
+                <div class="h-slide service-card">
+                    <div class="svc-num">01</div>
+                    <div class="svc-content">
+                        <h3>Desain Presentasi</h3>
+                        <p>Desain slide presentasi yang memukau untuk kebutuhan bisnis, akademik, atau pitch deck.</p>
+                        <ul class="svc-list">
+                            <li>Template PPT</li>
+                            <li>Pitch Deck</li>
+                            <li>Slide Kustom</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="h-slide service-card">
+                    <div class="svc-num">02</div>
+                    <div class="svc-content">
+                        <h3>Desain Web & Template</h3>
+                        <p>Membangun website modern yang responsif serta menyediakan template siap pakai yang elegan.</p>
+                        <ul class="svc-list">
+                            <li>Desain Website</li>
+                            <li>Template HTML</li>
+                            <li>Figma/Webflow</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="h-slide outro-slide">
+                    <div class="circle-text">Lihat<br>Produk</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="marquee-wrapper">
+            <div class="marquee-content">
+                <span>Template Presentasi</span><span>•</span>
+                <span>Desain Website</span><span>•</span>
+                <span>Pitch Deck</span><span>•</span>
+                <span>UI Kit</span><span>•</span>
+                <span>Template Presentasi</span><span>•</span>
+                <span>Desain Website</span><span>•</span>
+                <span>Pitch Deck</span><span>•</span>
+                <span>UI Kit</span><span>•</span>
+            </div>
+        </div>
+
+        <section class="products-section">
+            <div class="prod-header">
+                <h2 class="prod-title">Toko Kurasi</h2>
+                <p class="prod-subtitle">Aset untuk para perfeksionis.</p>
+            </div>
+            <div class="product-list">
+                <div class="product-item" data-img="F081.png">
+                    <div class="prod-info"><span class="prod-id">01</span><h3 class="prod-name">Template PPT</h3></div>
+                    <div class="prod-cat">PowerPoint</div><div class="prod-price">10k</div>
+                </div>
+                <div class="product-item" data-img="web.jpeg">
+                    <div class="prod-info"><span class="prod-id">02</span><h3 class="prod-name">Web Portofolio</h3></div>
+                    <div class="prod-cat">HTML/CSS/JS</div><div class="prod-price">150k</div>
+                </div>
+                <div class="product-item" data-img="ebook.png">
+                    <div class="prod-info"><span class="prod-id">03</span><h3 class="prod-name">E-Book</h3></div>
+                    <div class="prod-cat">Digital</div><div class="prod-price">50k</div>
+                </div>
+                <div class="product-item" data-img="2.png">
+                    <div class="prod-info"><span class="prod-id">04</span><h3 class="prod-name">Katalog</h3></div>
+                    <div class="prod-cat">Desain Grafis</div><div class="prod-price">30-40k/halaman</div>
+                </div>
+            </div>
+            <div class="hover-reveal-img"><div class="hover-reveal-inner"></div></div>
+        </section>
+
+        <footer class="footer-section" id="contact">
+            <div class="footer-top"><span>Surabaya, ID</span><span>Est. 2025</span></div>
+            <div class="footer-main-text">
+                <div class="line">Mari bangun</div>
+                <div class="line">sesuatu yang <span class="serif-italic">Ikonik.</span></div>
+            </div>
+            <div class="footer-btn-wrapper"><a href="#" class="footer-btn magnetic" aria-label="Mulai Proyek Bersama">Mulai Proyek</a></div>
+            <div class="footer-bottom">
+                <div class="socials">
+                    <a href="https://www.tiktok.com/@oscar_tech02?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer">TikTok</a>
+                    <a href="https://www.instagram.com/osca.rtech?igsh=MXIzdnBvYzU2czNncw%3D%3D" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://www.facebook.com/share/1DWTouYs9b/" target="_blank" rel="noopener noreferrer">Facebook</a>
+                    <a href="https://lynk.id/oscartech" target="_blank" rel="noopener noreferrer">Lynkid</a>
+                </div>
+                <div class="copyright">© Oscar Whale.</div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+
+    <script type="module">
+        import { Renderer, Program, Triangle, Mesh } from 'https://unpkg.com/ogl@0.0.111/src/index.mjs';
+
+        // --- KONFIGURASI LIGHT RAYS ---
+         const config = {
+            raysOrigin: 'top-center',
+            raysColor: '#4079ff',
+            raysSpeed: 0.6,
+            lightSpread: 0.9,
+            rayLength: 2.0,
+            pulsating: true,
+            fadeDistance: 2.5,
+            saturation: 0.85,
+            mouseInfluence: 0.12,
+            noiseAmount: 0.03,
+            distortion: 0.06,
+        };
+
+        const darkRays = [0.25, 0.47, 1.0];
+        const lightRays = [0.1, 0.2, 0.6];
+
+        const getAnchorAndDir = (origin, w, h) => {
+            const outside = 0.2;
+            switch (origin) {
+                case 'top-left': return { anchor: [0, -outside * h], dir: [0, 1] };
+                case 'top-right': return { anchor: [w, -outside * h], dir: [0, 1] };
+                case 'left': return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] };
+                case 'right': return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] };
+                case 'bottom-left': return { anchor: [0, (1 + outside) * h], dir: [0, -1] };
+                case 'bottom-center': return { anchor: [0.5 * w, -outside * h], dir: [0, 1] };
+                case 'bottom-right': return { anchor: [w, (1 + outside) * h], dir: [0, -1] };
+                default: return { anchor: [0.5 * w, (1 + outside) * h], dir: [0, -1] }; 
+            }
+        };
+
+        const vert = `attribute vec2 position; varying vec2 vUv; void main() { vUv = position * 0.5 + 0.5; gl_Position = vec4(position, 0.0, 1.0); }`;
+        const frag = `
+            precision highp float;
+            uniform float iTime;
+            uniform vec2 iResolution;
+            uniform vec2 rayPos;
+            uniform vec2 rayDir;
+            uniform vec3 raysColor;
+            uniform float raysSpeed;
+            uniform float lightSpread;
+            uniform float rayLength;
+            uniform float pulsating;
+            uniform float fadeDistance;
+            uniform float saturation;
+            uniform vec2 mousePos;
+            uniform float mouseInfluence;
+            uniform float noiseAmount;
+            uniform float distortion;
+            varying vec2 vUv;
+            float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); }
+            float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) {
+                vec2 sourceToCoord = coord - raySource;
+                vec2 dirNorm = normalize(sourceToCoord);
+                float cosAngle = dot(dirNorm, rayRefDirection);
+                float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2;
+                float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001));
+                float distance = length(sourceToCoord);
+                float maxDistance = iResolution.x * rayLength;
+                float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0);
+                float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0);
+                float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0;
+                float baseStrength = clamp( (0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0 );
+                return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse;
+            }
+            void main() {
+                vec2 coord = gl_FragCoord.xy;
+                vec2 finalRayDir = rayDir;
+                if (mouseInfluence > 0.0) {
+                    vec2 mouseScreenPos = mousePos * iResolution.xy;
+                    vec2 mouseDirection = normalize(mouseScreenPos - rayPos);
+                    finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence));
+                }
+                vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed);
+                vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed);
+                vec4 fragColor = rays1 * 0.5 + rays2 * 0.4;
+                if (noiseAmount > 0.0) {
+                    float n = noise(coord * 0.01 + iTime * 0.1);
+                    fragColor.rgb *= (1.0 - noiseAmount + noiseAmount * n);
+                }
+                float brightness = 1.0 - (coord.y / iResolution.y);
+                fragColor.x *= 0.1 + brightness * 0.8;
+                fragColor.y *= 0.3 + brightness * 0.6;
+                fragColor.z *= 0.5 + brightness * 0.5;
+                if (saturation != 1.0) {
+                    float gray = dot(fragColor.rgb, vec3(0.299, 0.587, 0.114));
+                    fragColor.rgb = mix(vec3(gray), fragColor.rgb, saturation);
+                }
+                fragColor.rgb *= raysColor;
+                gl_FragColor = fragColor;
+            }
+        `;
+
+        function initGL() {
+            const container = document.getElementById('gl-container');
+            const renderer = new Renderer({ dpr: 1, alpha: true });
+            const gl = renderer.gl;
+            container.appendChild(gl.canvas);
+            
+            gl.canvas.style.width = '100%';
+            gl.canvas.style.height = '100%';
+            gl.canvas.style.display = 'block';
+
+            const program = new Program(gl, {
+                vertex: vert, fragment: frag,
+                uniforms: {
+                    iTime: { value: 0 },
+                    iResolution: { value: [0, 0] },
+                    rayPos: { value: [0, 0] },
+                    rayDir: { value: [0, 1] },
+                    raysColor: { value: darkRays }, 
+                    raysSpeed: { value: config.raysSpeed },
+                    lightSpread: { value: config.lightSpread },
+                    rayLength: { value: config.rayLength },
+                    pulsating: { value: config.pulsating ? 1.0 : 0.0 },
+                    fadeDistance: { value: config.fadeDistance },
+                    saturation: { value: config.saturation },
+                    mousePos: { value: [0.5, 0.5] },
+                    mouseInfluence: { value: config.mouseInfluence },
+                    noiseAmount: { value: config.noiseAmount },
+                    distortion: { value: config.distortion }
+                }
+            });
+            const mesh = new Mesh(gl, { geometry: new Triangle(gl), program });
+
+            window.addEventListener('themeChange', (e) => {
+                const isLight = e.detail.isLight;
+                program.uniforms.raysColor.value = isLight ? lightRays : darkRays;
+            });
+
+            function resize() {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                renderer.setSize(width, height);
+                const dpr = renderer.dpr;
+                const w = width * dpr;
+                const h = height * dpr;
+                program.uniforms.iResolution.value = [w, h];
+                const { anchor, dir } = getAnchorAndDir(config.raysOrigin, w, h);
+                program.uniforms.rayPos.value = anchor;
+                program.uniforms.rayDir.value = dir;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            const mouse = { x: 0.5, y: 0.5 };
+            const smoothMouse = { x: 0.5, y: 0.5 };
+            window.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = 1.0 - (e.clientY - rect.top) / rect.height;
+                mouse.x = x;
+                mouse.y = y;
+            });
+
+            requestAnimationFrame(function update(t) {
+                program.uniforms.iTime.value = t * 0.001;
+                const smoothing = 0.92;
+                smoothMouse.x = smoothMouse.x * smoothing + mouse.x * (1 - smoothing);
+                smoothMouse.y = smoothMouse.y * smoothing + mouse.y * (1 - smoothing);
+                program.uniforms.mousePos.value = [smoothMouse.x, smoothMouse.y];
+                renderer.render({ scene: mesh });
+                requestAnimationFrame(update);
+            });
+        }
+        initGL();
+    </script>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        // --- LENIS SMOOTH SCROLL ---
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true
+        });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+        // Integrate Lenis with ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        // --- CUSTOM CURSOR ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            gsap.to(cursorOutline, { x: posX, y: posY, duration: 0.15, ease: "power2.out" });
+            gsap.set(cursorDot, { x: posX, y: posY });
+        });
+        const hoverElements = document.querySelectorAll('a, button, .ai-card, .product-item, .menu-toggle-btn');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+
+        // --- MAGNETIC BUTTONS ---
+        document.querySelectorAll('.magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3 });
+                // Move children if needed, or just the btn
+            });
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+            });
+        });
+
+        // --- LOADER ---
+        function runLoader() {
+            const counter = { val: 0 };
+            const counterEl = document.querySelector(".loader-counter");
+            const words = gsap.utils.toArray(".loader-word");
+            const loaderTitle = document.querySelector(".loader-main-title");
+            const loaderWrap = document.querySelector(".loader-wrap");
+            const homeSection = document.querySelector("#home"); 
+            
+            const bioImage = document.querySelector(".bio-image-wrapper");
+            const nameContainer = document.querySelector(".name-container");
+            const heroTagline = document.querySelector(".hero-tagline");
+
+            const tlLoader = gsap.timeline({
+                onComplete: () => {
+                    initSiteAnimations(); 
+                    document.body.style.overflow = "auto";
+                }
+            });
+
+            tlLoader.to(counter, {
+                val: 100, duration: 3, ease: "power2.inOut",
+                onUpdate: () => { counterEl.innerText = Math.round(counter.val) + "%"; }
+            });
+
+            tlLoader.to(words[0], { opacity: 1, duration: 0.5 }, 0.2).to(words[0], { opacity: 0, duration: 0.5 }, 0.9);
+            tlLoader.to(words[1], { opacity: 1, duration: 0.5 }, 1.1).to(words[1], { opacity: 0, duration: 0.5 }, 1.9);
+            tlLoader.to(words[2], { opacity: 1, duration: 0.5 }, 2.1).to(words[2], { opacity: 0, duration: 0.5 }, 2.9);
+            tlLoader.to(counterEl, { opacity: 0, duration: 0.3 }, "-=0.2");
+
+            tlLoader.to(loaderTitle, { y: 0, duration: 1.2, ease: "power3.out" });
+            tlLoader.to({}, { duration: 0.5 }); 
+
+            // Initial State for Home
+            gsap.set(homeSection, { scale: 1.1, y: 100 }); 
+            gsap.set(bioImage, { y: 150, opacity: 0 });
+            // FORCE VISIBILITY of name and tagline
+            gsap.set([heroTagline, nameContainer], { opacity: 0, y: 50 }); 
+
+            tlLoader.to(loaderWrap, { yPercent: -100, duration: 1.5, ease: "power4.inOut" }, "lift");
+            tlLoader.to(homeSection, { scale: 1, y: 0, duration: 1.5, ease: "power4.inOut" }, "lift");
+
+            // Explicitly animate opacity to 1
+            tlLoader.to([heroTagline, nameContainer], { 
+                opacity: 1, y: 0, duration: 1.5, ease: "power2.out", stagger: 0.2 
+            }, "lift+=0.5");
+
+            tlLoader.to(bioImage, {
+                y: 0, opacity: 1, duration: 1.5, ease: "power3.out"
+            }, "lift+=0.6");
+        }
+
+        // --- SITE ANIMATIONS ---
+        function initSiteAnimations() {
+            // Text Split
+            function splitText(selector) {
+                const el = document.querySelector(selector);
+                if(!el) return;
+                const words = el.innerText.split(' ');
+                el.innerHTML = words.map(w => `<span class="word">${w}</span>`).join(' ');
+            }
+            splitText(".js-split-text");
+            gsap.from(".bio-text .word", { y: 100, opacity: 0, stagger: 0.03, duration: 1, ease: "power3.out", delay: 0.5 });
+
+            // Hero Parallax
+            const tlHero = gsap.timeline({
+                scrollTrigger: { trigger: ".hero-wrapper", start: "top top", end: "+=150%", scrub: 1, pin: true }
+            });
+            tlHero.to(".hero-background", { opacity: 0, duration: 1 })
+                  .to(".name-container", { scale: 0.8, opacity: 0, y: -50 }, "<")
+                  .to(".hero-tagline", { opacity: 0, y: -30 }, "<")
+                  .to(".bio-container", { opacity: 1 }, "-=0.5");
+
+            // Explorations
+            gsap.from(".explore-header", { scrollTrigger: { trigger: ".exploration-section", start: "top 80%" }, y: 50, opacity: 0, duration: 1 });
+            gsap.from(".ai-card", { scrollTrigger: { trigger: ".ai-grid", start: "top 80%" }, y: 100, opacity: 0, duration: 1, stagger: 0.1 });
+
+            // Horizontal
+            let mm = gsap.matchMedia();
+            mm.add("(min-width: 769px)", () => {
+                const sections = gsap.utils.toArray(".h-slide");
+                gsap.to(sections, {
+                    xPercent: -100 * (sections.length - 1), ease: "none",
+                    scrollTrigger: { trigger: ".horizontal-wrapper", pin: true, scrub: 1, end: "+=3000" }
+                });
+            });
+
+            // Products
+            gsap.from(".product-item", { scrollTrigger: { trigger: ".product-list", start: "top 80%" }, y: 30, opacity: 0, stagger: 0.1, duration: 0.8 });
+            
+            // Hover Reveal Logic
+            const revealImg = document.querySelector('.hover-reveal-img');
+            const revealInner = document.querySelector('.hover-reveal-inner');
+            document.querySelectorAll('.product-item').forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    revealInner.style.backgroundImage = `url(${item.dataset.img})`;
+                    gsap.to(revealImg, { opacity: 1, scale: 1, duration: 0.3 });
+                    document.querySelectorAll('.product-item').forEach(i => i !== item && (i.style.opacity = 0.3));
+                });
+                item.addEventListener('mouseleave', () => {
+                    gsap.to(revealImg, { opacity: 0, scale: 0.8, duration: 0.3 });
+                    document.querySelectorAll('.product-item').forEach(i => (i.style.opacity = 1));
+                });
+                item.addEventListener('mousemove', (e) => {
+                    gsap.to(revealImg, { x: e.clientX, y: e.clientY, duration: 0.5, ease: "power2.out" });
+                    gsap.to(revealInner, { rotation: (e.clientX - window.innerWidth/2)*0.01, duration: 0.5 });
+                });
+            });
+
+            // Footer
+            gsap.from(".footer-main-text .line", { scrollTrigger: { trigger: ".footer-section", start: "top 60%" }, y: 100, opacity: 0, stagger: 0.1, duration: 1, ease: "power4.out" });
+            
+            ScrollTrigger.refresh();
+        }
+
+        // --- MENU LOGIC ---
+        const menuBtn = document.getElementById('menuToggle');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const themeBtn = document.getElementById('themeToggleBtn');
+        const themeText = document.getElementById('themeText');
+        const moonIcon = document.getElementById('moonIcon');
+        const sunIcon = document.getElementById('sunIcon');
+        let isMenuOpen = false;
+        let isLightMode = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            menuBtn.classList.toggle('active');
+            menuOverlay.classList.toggle('open');
+            document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
+        }
+
+        themeBtn.addEventListener('click', () => {
+            isLightMode = !isLightMode;
+            document.body.classList.toggle('light-mode');
+            if (isLightMode) {
+                themeText.textContent = "Mode Gelap";
+                moonIcon.style.display = "none";
+                sunIcon.style.display = "block";
+            } else {
+                themeText.textContent = "Mode Terang";
+                moonIcon.style.display = "block";
+                sunIcon.style.display = "none";
+            }
+            window.dispatchEvent(new CustomEvent('themeChange', { detail: { isLight: isLightMode } }));
+        });
+
+        window.handleNavClick = function(e, targetId) {
+            e.preventDefault();
+            if (isMenuOpen) toggleMenu();
+            setTimeout(() => {
+                lenis.scrollTo(targetId, { duration: 1.5, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+            }, 300);
+        };
+        menuBtn.addEventListener('click', toggleMenu);
+        window.addEventListener("load", runLoader);
+
+    </script>
+</body>
+</html>
